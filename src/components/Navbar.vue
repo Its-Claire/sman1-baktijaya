@@ -1,5 +1,5 @@
 <template>
-    <header class="sticky top-0 z-50 bg-base-100/90 backdrop-blur border-b border-base-200">
+    <header class="sticky top-0 z-50 bg-base-100/90 backdrop-blur border-base-200">
         <div class="navbar container mx-auto px-4">
             <div class="navbar-start">
                 <div class="dropdown">
@@ -11,7 +11,7 @@
                     </ul>
                 </div>
                 <a href="#" class="btn btn-ghost text-xl gap-2">
-                    <div class="avatar placeholder"><div class="bg-primary text-primary-content w-8 rounded-full">SJ</div></div>
+                    <div class="avatar placeholder"><div class="bg-success text-primary-content w-8 rounded-full">SJ</div></div>
                     SMAN 1 Bakti Jaya
                 </a>
             </div>
@@ -24,7 +24,7 @@
                 <select class="select select-bordered select-sm" v-model="theme" @change="applyTheme">
                     <option v-for="t in themes" :key="t" :value="t">{{ t }}</option>
                 </select>
-                <a href="#pendaftaran" class="btn btn-primary btn-sm">Daftar</a>
+                <a href="#pendaftaran" class="btn btn-success btn-sm text-white">Daftar</a>
             </div>
         </div>
     </header>
