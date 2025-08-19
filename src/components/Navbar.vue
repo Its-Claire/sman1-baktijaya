@@ -2,14 +2,6 @@
     <header class="sticky top-0 z-50 bg-base-100/90 backdrop-blur border-base-200">
         <div class="navbar container mx-auto px-4">
             <div class="navbar-start">
-                <div class="dropdown">
-                    <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-                    </div>
-                    <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                    <li v-for="item in nav" :key="item.href"><a :href="item.href">{{ item.label }}</a></li>
-                    </ul>
-                </div>
                 <a href="#" class="btn btn-ghost text-xl gap-2">
                     <div class="avatar placeholder"><div class="bg-success text-primary-content w-8 rounded-full">SJ</div></div>
                     {{ brandLabel }}
@@ -21,9 +13,12 @@
                 </ul>
             </div>
             <div class="navbar-end gap-2">
-                <select class="select select-bordered select-sm" v-model="theme" @change="applyTheme">
-                    <option v-for="t in themes" :key="t" :value="t">{{ t }}</option>
-                </select>
+                <form class="join hidden md:flex" @submit.prevent="submitSearch">
+                    <input type="text" v-model="query" placeholder="Cari menu..." class="input input-bordered input-sm join-item w-40 lg:w-64" />
+                    <button type="submit" class="btn btn-success btn-sm text-white join-item" aria-label="Cari">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </button>
+                </form>
                 <a :href="ctaHref" class="btn btn-success btn-sm text-white">{{ ctaLabel }}</a>
             </div>
         </div>
@@ -31,9 +26,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 
-const { nav, themes, brandLabel, ctaHref, ctaLabel } = defineProps({
+const { nav, brandLabel, ctaHref, ctaLabel } = defineProps({
     nav: {
         type: Array,
         default: () => ([
@@ -42,12 +37,6 @@ const { nav, themes, brandLabel, ctaHref, ctaLabel } = defineProps({
             { label: 'Program', href: '#program' },
             { label: 'Pendaftaran', href: '#pendaftaran' },
             { label: 'Kontak', href: '#kontak' },
-        ])
-    },
-    themes: {
-        type: Array,
-        default: () => ([
-            'light', 'dark', 'cupcake', 'emerald', 'corporate', 'retro', 'pastel', 'business', 'lemonade', 'night'
         ])
     },
     brandLabel: {
@@ -64,14 +53,19 @@ const { nav, themes, brandLabel, ctaHref, ctaLabel } = defineProps({
     }
 })
 
-const theme = ref(localStorage.getItem('theme') || 'light')
+const query = ref('')
 
-function applyTheme() {
-    document.documentElement.setAttribute('data-theme', theme.value)
-    localStorage.setItem('theme', theme.value)
+function submitSearch() {
+    const trimmed = query.value.trim()
+    if (!trimmed) return
+    const lower = trimmed.toLowerCase()
+    const match = nav.find(item => String(item.label || '').toLowerCase().includes(lower))
+    if (match && match.href) {
+        if (String(match.href).startsWith('#')) {
+            window.location.hash = String(match.href).slice(1)
+        } else {
+            window.location.href = String(match.href)
+        }
+    }
 }
-
-onMounted(() => {
-    applyTheme()
-})
 </script>
