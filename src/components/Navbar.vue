@@ -12,7 +12,7 @@
                 </div>
                 <a href="#" class="btn btn-ghost text-xl gap-2">
                     <div class="avatar placeholder"><div class="bg-success text-primary-content w-8 rounded-full">SJ</div></div>
-                    SMAN 1 Bakti Jaya
+                    {{ brandLabel }}
                 </a>
             </div>
             <div class="navbar-center hidden lg:flex">
@@ -24,8 +24,54 @@
                 <select class="select select-bordered select-sm" v-model="theme" @change="applyTheme">
                     <option v-for="t in themes" :key="t" :value="t">{{ t }}</option>
                 </select>
-                <a href="#pendaftaran" class="btn btn-success btn-sm text-white">Daftar</a>
+                <a :href="ctaHref" class="btn btn-success btn-sm text-white">{{ ctaLabel }}</a>
             </div>
         </div>
     </header>
 </template>
+
+<script setup>
+import { ref, onMounted } from 'vue'
+
+const { nav, themes, brandLabel, ctaHref, ctaLabel } = defineProps({
+    nav: {
+        type: Array,
+        default: () => ([
+            { label: 'Beranda', href: '#beranda' },
+            { label: 'Profil', href: '#profil' },
+            { label: 'Program', href: '#program' },
+            { label: 'Pendaftaran', href: '#pendaftaran' },
+            { label: 'Kontak', href: '#kontak' },
+        ])
+    },
+    themes: {
+        type: Array,
+        default: () => ([
+            'light', 'dark', 'cupcake', 'emerald', 'corporate', 'retro', 'pastel', 'business', 'lemonade', 'night'
+        ])
+    },
+    brandLabel: {
+        type: String,
+        default: 'SMAN 1 Bakti Jaya'
+    },
+    ctaHref: {
+        type: String,
+        default: '#pendaftaran'
+    },
+    ctaLabel: {
+        type: String,
+        default: 'Daftar'
+    }
+})
+
+const theme = ref(localStorage.getItem('theme') || 'light')
+
+function applyTheme() {
+    document.documentElement.setAttribute('data-theme', theme.value)
+    localStorage.setItem('theme', theme.value)
+}
+
+onMounted(() => {
+    applyTheme()
+})
+</script>
