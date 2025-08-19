@@ -1,7 +1,7 @@
 <template>
-    <section :id="sectionId" class="bg-base-200 py-16">
+    <section :id="sectionId" class="bg-base-200 py-16 bg-white">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl lg:text-4xl font-bold mb-8 text-center">{{ title }}</h2>
+            <h2 class="text-3xl lg:text-4xl font-bold mb-8 text-center text-gray-800">{{ title }}</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <ProgramCard v-for="p in programs" :key="p.title" :title="p.title" :desc="p.desc" :badge="p.badge" />
             </div>

@@ -1,5 +1,5 @@
 <template>
-	<article class="card bg-base-100 shadow">
+	<article class="card bg-primary-content shadow text-gray-800">
 		<div class="card-body">
 			<h3 class="card-title">{{ title }}</h3>
 			<p class="opacity-80">{{ desc }}</p>
