@@ -5,6 +5,7 @@
         <Profile />
         <ProgramEkskul />
         <Pendaftaran />
+        <Contact />
     </div>
 </template>
 
@@ -14,6 +15,7 @@ import Heroes from './Heroes.vue';
 import Profile from './Profile.vue';
 import ProgramEkskul from './ProgramEkskul.vue';
 import Pendaftaran from './Pendaftaran.vue';
+import Contact from './Contact.vue';
 
 const nav = [
     { label: 'Beranda', href: '#beranda' },
