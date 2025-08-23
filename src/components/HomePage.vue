@@ -6,6 +6,7 @@
         <ProgramEkskul />
         <Pendaftaran />
         <Contact />
+        <Footer />
     </div>
 </template>
 
@@ -16,6 +17,7 @@ import Profile from './Profile.vue';
 import ProgramEkskul from './ProgramEkskul.vue';
 import Pendaftaran from './Pendaftaran.vue';
 import Contact from './Contact.vue';
+import Footer from './Footer.vue';
 
 const nav = [
     { label: 'Beranda', href: '#beranda' },
